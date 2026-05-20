@@ -1,0 +1,56 @@
+# ══════════════════════════════════════════
+# KaisenFlow — Git Ignore
+# ══════════════════════════════════════════
+
+# ─── Dependencies ───
+node_modules/
+.pnp
+.pnp.js
+
+# ─── Build Output ───
+dist/
+build/
+*.tsbuildinfo
+
+# ─── Environment Variables ───
+.env
+.env.local
+.env.production
+.env.staging
+backend/.env
+frontend/.env
+
+# ─── IDE / Editor ───
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─── Logs ───
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ─── OS Files ───
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# ─── Testing ───
+coverage/
+.nyc_output/
+
+# ─── Misc ───
+*.tgz
+.cache/
+.temp/
+.tmp/

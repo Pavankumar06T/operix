@@ -1,0 +1,98 @@
+# ══════════════════════════════════════════════════════════
+# KaisenFlow — Dependencies & Libraries Reference
+# ══════════════════════════════════════════════════════════
+# This is a Node.js project using npm (not pip).
+# Run `npm install` in both /backend and /frontend folders.
+# This file is for documentation/reference only.
+# ══════════════════════════════════════════════════════════
+
+# ─────────────────────────────────────────
+# BACKEND DEPENDENCIES (backend/package.json)
+# ─────────────────────────────────────────
+
+# Core Server
+express==4.21.0                    # Web framework for REST API
+cors==2.8.5                        # Cross-origin resource sharing
+dotenv==16.4.5                     # Load .env environment variables
+
+# AI / LangChain
+@langchain/google-genai==0.1.0     # Google Gemini AI via LangChain
+@langchain/core==0.3.0             # LangChain core (messages, prompts)
+
+# Database
+@supabase/supabase-js==2.39.0     # Supabase client (PostgreSQL)
+
+# Email
+resend==3.2.0                      # Transactional email service
+
+# Real-time
+socket.io==4.7.5                   # WebSocket for live alerts
+
+# Scheduling
+node-cron==3.0.3                   # Cron job scheduler
+
+# Auth
+jsonwebtoken==9.0.2                # JWT token generation & verification
+
+# Utilities
+date-fns==3.6.0                    # Date manipulation
+uuid==9.0.1                        # Unique ID generation
+
+# Dev Dependencies
+typescript==5.4.0                  # TypeScript compiler
+ts-node-dev==2.0.0                 # Hot-reload TypeScript dev server
+@types/express==4.17.21            # Express type definitions
+@types/cors==2.8.17                # CORS type definitions
+@types/node==20.11.0               # Node.js type definitions
+@types/jsonwebtoken==9.0.6         # JWT type definitions
+@types/node-cron==3.0.11           # node-cron type definitions
+@types/uuid==9.0.7                 # UUID type definitions
+
+# ─────────────────────────────────────────
+# FRONTEND DEPENDENCIES (frontend/package.json)
+# ─────────────────────────────────────────
+
+# Core
+react==18.2.0                      # UI library
+react-dom==18.2.0                  # React DOM renderer
+react-router-dom==6.22.3           # Client-side routing
+
+# State Management
+zustand==4.5.2                     # Lightweight state management
+@tanstack/react-query==5.28.0     # Server state / data fetching
+
+# HTTP & Real-time
+axios==1.6.8                       # HTTP client for API calls
+socket.io-client==4.7.5            # WebSocket client for live alerts
+
+# UI Components
+lucide-react==0.344.0              # Icon library (200+ icons)
+recharts==2.12.2                   # Chart library (Bar, Area, Line)
+react-markdown==9.0.1              # Markdown renderer for AI chat
+@hello-pangea/dnd==16.6.0         # Drag and drop
+
+# Forms & Validation
+react-hook-form==7.51.0            # Form handling
+@hookform/resolvers==3.3.4        # Form validation resolvers
+zod==3.22.4                        # Schema validation
+
+# Utilities
+date-fns==3.6.0                    # Date manipulation
+
+# Dev Dependencies
+typescript==5.4.0                  # TypeScript compiler
+vite==5.1.6                        # Build tool & dev server
+@vitejs/plugin-react==4.2.1       # Vite React plugin
+tailwindcss==3.4.1                 # Utility-first CSS framework
+postcss==8.4.35                    # CSS post-processor
+autoprefixer==10.4.18              # CSS vendor prefixes
+@types/react==18.2.64              # React type definitions
+@types/react-dom==18.2.21          # React DOM type definitions
+
+# ─────────────────────────────────────────
+# EXTERNAL SERVICES (need accounts)
+# ─────────────────────────────────────────
+
+# 1. Supabase        → https://supabase.com         (Free tier available)
+# 2. Google Gemini   → https://aistudio.google.com  (Free tier available)
+# 3. Resend          → https://resend.com            (Free tier: 100 emails/day)
