@@ -74,7 +74,7 @@ export function AiAssistant() {
         return s
       }))
     },
-    onError: (err, variables) => {
+    onError: (_, variables) => {
       setSessions(prev => prev.map(s => {
         if (s.id === variables.sessionId) {
           return {

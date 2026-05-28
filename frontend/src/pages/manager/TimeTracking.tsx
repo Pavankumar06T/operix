@@ -184,7 +184,7 @@ export function TimeTracking() {
                       ))}
                     </Pie>
                     <Tooltip 
-                      formatter={(value: number) => [`${value} hours`, 'Time Spent']}
+                      formatter={(value: any) => [`${value} hours`, 'Time Spent']}
                       contentStyle={{ backgroundColor: '#1f2937', borderColor: '#374151', color: '#f3f4f6' }}
                     />
                   </PieChart>
@@ -216,7 +216,7 @@ export function TimeTracking() {
                   <YAxis tick={{ fontSize: 12, fill: '#9ca3af' }} tickLine={false} axisLine={false} />
                   <Tooltip 
                     cursor={{ fill: '#374151', opacity: 0.4 }}
-                    formatter={(value: number) => [`${value} mins`, 'Active Time']}
+                    formatter={(value: any) => [`${value} mins`, 'Active Time']}
                     contentStyle={{ backgroundColor: '#1f2937', borderColor: '#374151', color: '#f3f4f6' }}
                   />
                   <Bar dataKey="todayActiveMins" fill="#4F6EF7" radius={[4, 4, 0, 0]} barSize={40} />

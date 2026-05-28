@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { X } from 'lucide-react'
 import { Button } from '../ui/button'
 import { useTimeTracking } from '../../hooks/useTimeTracking'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog'

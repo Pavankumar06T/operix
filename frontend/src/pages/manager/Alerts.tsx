@@ -96,12 +96,12 @@ export function Alerts() {
                     {alert.message}
                   </p>
 
-                  {alert.entity_type === 'task' && !alert.is_seen && (
+                  {(alert as any).entity_type === 'task' && !alert.is_seen && (
                     <div className="mt-3 inline-flex items-center text-xs font-medium bg-background border px-2.5 py-1 rounded-md">
                       Action Required: Review Task
                     </div>
                   )}
-                  {alert.entity_type === 'employee' && !alert.is_seen && (
+                  {(alert as any).entity_type === 'employee' && !alert.is_seen && (
                     <div className="mt-3 inline-flex items-center text-xs font-medium bg-purple-500/10 text-purple-500 border border-purple-500/20 px-2.5 py-1 rounded-md">
                       Action Required: Check on Team Member
                     </div>

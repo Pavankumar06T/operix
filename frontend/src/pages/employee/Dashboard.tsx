@@ -20,7 +20,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/use-toast'
 
-import { TimerWidget } from '@/components/tracking/TimerWidget'
+
 import { useTimer } from '@/hooks/useTimer'
 import { useTimeTracking } from '@/hooks/useTimeTracking'
 import { StopTimerModal } from '@/components/tracking/StopTimerModal'
@@ -35,7 +35,7 @@ const fetchMyTasks = async () => {
 }
 
 export function EmployeeDashboard() {
-  const { user, logout } = useAuthStore()
+  const { user } = useAuthStore()
   const { toast } = useToast()
   const queryClient = useQueryClient()
   const [selectedTask, setSelectedTask] = useState<any | null>(null)
