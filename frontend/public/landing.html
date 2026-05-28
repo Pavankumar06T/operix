@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPERIX | Predict. Prevent. Perform.</title>
+    <link rel="icon" type="image/png" href="/logo.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --bg-primary: #0A0A0F;
+            --bg-secondary: #111118;
+            --bg-card: #16161F;
+            --bg-elevated: #1C1C28;
+            --border: #2A2A3A;
+            --text-primary: #F8F8FF;
+            --text-secondary: #9898B0;
+            --text-tertiary: #5A5A72;
+            --accent-blue: #4F6EF7;
+            --accent-blue-2: #3D5AE5;
+            --accent-green: #22C55E;
+            --accent-amber: #F59E0B;
+            --accent-red: #EF4444;
+            --accent-purple: #A855F7;
+            --accent-cyan: #06B6D4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ─── TYPOGRAPHY ─── */
+        h1, h2, h3, h4 {
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ─── BUTTONS ─── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            box-shadow: 0 8px 32px rgba(79, 110, 247, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(168, 85, 247, 0.45);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-blue);
+            background: rgba(79, 110, 247, 0.1);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-secondary);
+        }
+
+        .btn-ghost:hover {
+            color: var(--text-primary);
+            border-color: var(--border);
+        }
+
+        /* ─── ANIMATIONS ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+        .delay-600 { transition-delay: 600ms; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes hueRotate {
+            0% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(30deg); }
+            100% { filter: hue-rotate(0deg); }
+        }
+
+        /* ─── NAVBAR ─── */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 64px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(42, 42, 58, 0.8);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-icon {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .nav-actions .btn-primary {
+            padding: 8px 20px;
+            font-size: 14px;
+            box-shadow: 0 0 20px rgba(79, 110, 247, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 140px 20px 80px;
+            text-align: center;
+        }
+
+        .hero-bg-orb {
+            position: absolute;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(79,110,247,0.08) 0%, rgba(168,85,247,0.04) 50%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .hero-grid {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(42,42,58,0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(42,42,58,0.3) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: float 6s infinite ease-in-out;
+            opacity: 0.6;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            background: rgba(168, 85, 247, 0.08);
+            border-radius: 999px;
+            padding: 6px 16px;
+            color: var(--accent-purple);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 32px;
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-purple);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(168, 85, 247, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero-headline-2 {
+            animation: hueRotate 4s infinite;
+        }
+
+        .hero p.subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .social-proof {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .social-proof p {
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+
+        .avatars {
+            display: flex;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-primary);
+            margin-left: -8px;
+            background: #333;
+        }
+        .avatar:first-child { margin-left: 0; }
+        .avatar-count {
+            background: var(--bg-elevated);
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ─── DASHBOARD PREVIEW ─── */
+        .dashboard-preview {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 60px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: 
+                0 0 0 1px rgba(79,110,247,0.1),
+                0 40px 80px rgba(0,0,0,0.6),
+                0 0 120px rgba(79,110,247,0.08);
+            position: relative;
+        }
+
+        .browser-bar {
+            height: 40px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 16px;
+        }
+
+        .mac-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mac-dots div {
+            width: 12px; height: 12px; border-radius: 50%;
+        }
+        .mac-dots .red { background: #EF4444; }
+        .mac-dots .amber { background: #F59E0B; }
+        .mac-dots .green { background: #22C55E; }
+
+        .url-bar {
+            background: var(--bg-card);
+            border-radius: 6px;
+            padding: 4px 16px;
+            color: var(--text-tertiary);
+            font-size: 12px;
+            flex-grow: 1;
+            max-width: 300px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .dashboard-content {
+            background: var(--bg-primary);
+            padding: 24px;
+        }
+
+        .dash-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .dash-card {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: left;
+        }
+
+        .dash-card h4 {
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .dash-card .value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .text-blue { color: var(--accent-blue); }
+        .text-amber { color: var(--accent-amber); }
+        .text-green { color: var(--accent-green); }
+        .text-red { color: var(--accent-red); }
+
+        .dash-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .dash-panel h3 {
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .task-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            width: 100px;
+            overflow: hidden;
+        }
+
+        .progress-fill { height: 100%; border-radius: 3px; }
+
+        .alert-popup {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--accent-amber);
+            border-left: 3px solid var(--accent-amber);
+            border-radius: 8px;
+            padding: 16px;
+            width: 280px;
+            text-align: left;
+            animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) 2s both;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(120%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .alert-popup h4 { font-size: 14px; margin-bottom: 4px; color: white; display: flex; align-items: center; gap: 8px;}
+        .alert-popup p { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px;}
+        .alert-popup span { font-size: 11px; color: var(--text-tertiary); }
+
+        /* ─── STATS ─── */
+        .stats {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 60px 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            border-right: 1px solid var(--border);
+        }
+        .stat-item:last-child { border-right: none; }
+
+        .stat-num {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* ─── FEATURES ─── */
+        .section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .pill-label {
+            display: inline-block;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.03);
+            color: var(--text-secondary);
+            font-size: 12px;
+            letter-spacing: 2px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .fc-blue:hover { border-color: var(--accent-blue); box-shadow: 0 0 30px rgba(79,110,247,0.1); }
+        .fc-purple:hover { border-color: var(--accent-purple); box-shadow: 0 0 30px rgba(168,85,247,0.1); }
+        .fc-red:hover { border-color: var(--accent-red); box-shadow: 0 0 30px rgba(239,68,68,0.1); }
+        .fc-green:hover { border-color: var(--accent-green); box-shadow: 0 0 30px rgba(34,197,94,0.1); }
+        .fc-cyan:hover { border-color: var(--accent-cyan); box-shadow: 0 0 30px rgba(6,182,212,0.1); }
+
+        .feature-icon-container {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 24px;
+        }
+
+        .bg-blue-soft { background: rgba(79,110,247,0.12); color: var(--accent-blue); }
+        .bg-purple-soft { background: rgba(168,85,247,0.12); color: var(--accent-purple); }
+        .bg-red-soft { background: rgba(239,68,68,0.12); color: var(--accent-red); }
+        .bg-green-soft { background: rgba(34,197,94,0.12); color: var(--accent-green); }
+        .bg-cyan-soft { background: rgba(6,182,212,0.12); color: var(--accent-cyan); }
+
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .feature-link {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* ─── HOW IT WORKS ─── */
+        .bg-alt { background: var(--bg-secondary); }
+
+        .steps-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .step-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-blue), var(--accent-purple));
+            opacity: 0.3;
+            transform: translateX(-50%);
+        }
+
+        .step-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .step-row.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .step-content, .step-visual {
+            width: 45%;
+        }
+
+        .step-number {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 20px;
+            border: 4px solid var(--bg-secondary);
+            z-index: 2;
+        }
+
+        .step-content h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .step-content p {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .mock-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        /* ─── AI ASSISTANT ─── */
+        .ai-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .ai-queries {
+            margin: 32px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .ai-query {
+            background: rgba(168,85,247,0.06);
+            border: 1px solid rgba(168,85,247,0.2);
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .chat-mockup {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-header-icon {
+            width: 32px; height: 32px;
+            background: rgba(168,85,247,0.1);
+            color: var(--accent-purple);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chat-msg {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+            animation: fadeIn 0.3s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        .msg-user {
+            background: var(--accent-blue);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            transform: translateY(10px);
+        }
+
+        .msg-ai {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            border: 1px solid var(--border);
+            transform: translateY(10px);
+        }
+
+        .typing {
+            display: flex; gap: 4px; align-items: center; padding: 16px;
+            align-self: flex-start; opacity: 0; animation: fadeInOut 1.5s 1s forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; display: none; }
+        }
+
+        .typing span {
+            width: 6px; height: 6px; background: var(--accent-purple); border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .typing span:nth-child(1) { animation-delay: -0.32s; }
+        .typing span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        .chat-input {
+            padding: 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+        }
+
+        .chat-input input {
+            flex: 1; background: var(--bg-primary); border: 1px solid var(--border);
+            border-radius: 8px; padding: 10px 16px; color: white;
+        }
+
+        /* ─── TESTIMONIALS ─── */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .test-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .stars { color: #FBBF24; font-size: 18px; margin-bottom: 16px; letter-spacing: 2px;}
+
+        .test-quote {
+            font-style: italic;
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+        }
+
+        .test-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-weight: 700;
+        }
+
+        /* ─── PRICING ─── */
+        .toggle-container {
+            display: flex; justify-content: center; align-items: center; gap: 16px; margin-bottom: 60px;
+        }
+        .toggle-switch {
+            width: 56px; height: 32px; background: var(--bg-card); border-radius: 16px;
+            border: 1px solid var(--border); position: relative; cursor: pointer;
+        }
+        .toggle-knob {
+            width: 24px; height: 24px; background: var(--accent-blue); border-radius: 50%;
+            position: absolute; top: 3px; left: 4px; transition: transform 0.3s;
+        }
+
+        .pricing-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+        }
+
+        .price-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 40px 32px; display: flex; flex-direction: column;
+            position: relative;
+        }
+
+        .price-card.popular {
+            background: linear-gradient(135deg, rgba(79,110,247,0.12), rgba(168,85,247,0.08));
+            border-color: rgba(79,110,247,0.4);
+            transform: scale(1.05);
+            z-index: 2;
+        }
+
+        .popular-badge {
+            position: absolute; top: 16px; right: 16px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 999px;
+        }
+
+        .price-name { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+        .price-amt { font-size: 48px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+        .price-sub { color: var(--text-secondary); font-size: 14px; margin-bottom: 32px; }
+
+        .price-features { list-style: none; margin-bottom: 40px; flex-grow: 1;}
+        .price-features li { display: flex; gap: 12px; margin-bottom: 16px; font-size: 14px; color: var(--text-primary);}
+        .price-features li.disabled { color: var(--text-tertiary); }
+        .check { color: var(--accent-green); }
+        .cross { color: var(--text-tertiary); }
+
+        /* ─── FAQ ─── */
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-question {
+            width: 100%; text-align: left; background: none; border: none;
+            padding: 24px 0; font-size: 18px; font-weight: 600; color: var(--text-primary);
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+        }
+        .faq-answer {
+            height: 0; overflow: hidden; transition: height 0.3s ease; color: var(--text-secondary);
+            font-size: 15px; line-height: 1.6;
+        }
+        .faq-answer-inner { padding-bottom: 24px; }
+        .faq-icon { transition: transform 0.3s; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
+
+        /* ─── CTA SECTION ─── */
+        .cta-section {
+            padding: 120px 20px; text-align: center; position: relative;
+        }
+        .cta-orb {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(79,110,247,0.1) 0%, transparent 70%);
+            pointer-events: none; z-index: -1;
+        }
+        .cta-section h2 { font-size: 64px; margin-bottom: 24px; }
+        .cta-section p { font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto 40px; }
+        .trust-row { display: flex; justify-content: center; gap: 24px; margin-top: 24px; color: var(--text-secondary); font-size: 14px;}
+
+        /* ─── FOOTER ─── */
+        footer { background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 80px 20px 32px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1200px; margin: 0 auto 60px; }
+        .footer-logo { font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        .footer-logo img { width: 24px; height: 24px; object-fit: contain; }
+        .footer-col h4 { font-size: 16px; font-weight: 600; margin-bottom: 24px; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul a { color: var(--text-secondary); font-size: 14px; transition: color 0.2s; }
+        .footer-col ul a:hover { color: var(--text-primary); }
+        .footer-bottom { border-top: 1px solid var(--border); padding-top: 32px; display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto; color: var(--text-tertiary); font-size: 13px;}
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1199px) {
+            .hero h1 { font-size: 56px; }
+            .section-title, .cta-section h2 { font-size: 40px; }
+            .stats { grid-template-columns: repeat(2, 1fr); gap: 40px 20px; }
+            .stat-item:nth-child(2) { border-right: none; }
+            .features-grid, .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+            .ai-grid { grid-template-columns: 1fr; }
+            .price-card.popular { transform: scale(1); }
+        }
+
+        @media (max-width: 767px) {
+            nav { padding: 0 20px; }
+            .nav-links, .nav-actions { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero { padding-top: 120px; }
+            .hero h1 { font-size: 40px; }
+            .hero-buttons { flex-direction: column; }
+            .stats { grid-template-columns: 1fr; }
+            .stat-item { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 24px; }
+            .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+            .section-title, .cta-section h2 { font-size: 32px; }
+            .features-grid, .testimonials-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .step-row, .step-row.reverse { flex-direction: column; text-align: center; }
+            .step-content, .step-visual { width: 100%; margin-bottom: 24px; }
+            .step-line { display: none; }
+            .step-number { position: relative; left: auto; top: auto; transform: none; margin: 0 auto 20px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            .trust-row { flex-direction: column; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SECTION 1: NAVIGATION BAR -->
+    <nav id="navbar">
+        <div class="nav-logo">
+            <img src="/logo.png" alt="Operix Logo" class="nav-icon" />
+            OPERIX
+        </div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#faq">FAQ</a>
+        </div>
+        <div class="nav-actions">
+            <a href="/login" class="btn btn-ghost">Sign In</a>
+            <a href="/login" class="btn btn-primary">Get Started Free</a>
+        </div>
+        <button class="mobile-menu-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+    </nav>
+
+    <!-- SECTION 2: HERO SECTION -->
+    <header class="hero">
+        <div class="hero-bg-orb"></div>
+        <div class="hero-grid"></div>
+        
+        <!-- Particles -->
+        <div class="particle" style="width: 8px; height: 8px; background: var(--accent-blue); top: 20%; left: 20%; animation-duration: 5s;"></div>
+        <div class="particle" style="width: 6px; height: 6px; background: var(--accent-purple); top: 30%; right: 25%; animation-duration: 7s;"></div>
+        <div class="particle" style="width: 10px; height: 10px; background: var(--accent-cyan); top: 60%; left: 15%; animation-duration: 4s;"></div>
+        <div class="particle" style="width: 5px; height: 5px; background: var(--accent-blue); top: 70%; right: 20%; animation-duration: 6s;"></div>
+        <div class="particle" style="width: 7px; height: 7px; background: var(--accent-purple); top: 40%; left: 80%; animation-duration: 8s;"></div>
+        <div class="particle" style="width: 9px; height: 9px; background: var(--accent-cyan); top: 15%; right: 40%; animation-duration: 5.5s;"></div>
+
+        <div class="badge reveal delay-300">
+            <div class="badge-dot"></div>
+            ✨ AI-Powered Operations Platform
+        </div>
+
+        <h1 class="reveal delay-100">Stop Chasing</h1>
+        <h1 class="reveal delay-200 text-gradient hero-headline-2">Deadlines.</h1>
+        <h1 class="reveal delay-300">Start Predicting.</h1>
+
+        <p class="subtitle reveal delay-500">
+            OPERIX uses AI to predict project delays before they happen, detect team burnout early, and generate intelligent performance reports — automatically.
+        </p>
+
+        <div class="hero-buttons reveal delay-600">
+            <a href="/login" class="btn btn-primary">Get Started Free →</a>
+            <a href="#how-it-works" class="btn btn-secondary">▶ Watch Demo</a>
+        </div>
+
+
+        <div class="dashboard-preview reveal delay-600">
+            <div class="browser-bar">
+                <div class="mac-dots">
+                    <div class="red"></div><div class="amber"></div><div class="green"></div>
+                </div>
+                <div class="url-bar font-mono">localhost:5173/dashboard</div>
+            </div>
+            <div class="dashboard-content">
+                <div class="dash-row">
+                    <div class="dash-card"><h4>Active Projects</h4><div class="value text-blue font-mono">8</div></div>
+                    <div class="dash-card"><h4>Tasks At Risk</h4><div class="value text-amber font-mono">5</div></div>
+                    <div class="dash-card"><h4>Team Efficiency</h4><div class="value text-green font-mono">74%</div></div>
+                    <div class="dash-card"><h4>Alerts Today</h4><div class="value text-red font-mono">3</div></div>
+                </div>
+                <div class="dash-row">
+                    <div class="dash-panel" style="flex: 2">
+                        <h3>Task Risk Board</h3>
+                        <div class="task-row">
+                            <span>Payment Gateway API</span>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 92%; background: var(--accent-red)"></div></div>
+                        </div>
+                        <div class="task-row">
+                            <span>User Authentication</span>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 72%; background: var(--accent-amber)"></div></div>
+                        </div>
+                        <div class="task-row">
+                            <span>Dashboard Layout</span>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 35%; background: var(--accent-green)"></div></div>
+                        </div>
+                    </div>
+                    <div class="dash-panel" style="flex: 1">
+                        <h3>Team Workload</h3>
+                        <div class="task-row"><span>Ravi</span><span class="font-mono text-tertiary">8/8</span></div>
+                        <div class="task-row"><span>Priya</span><span class="font-mono text-tertiary">3/8</span></div>
+                        <div class="task-row"><span>Amit</span><span class="font-mono text-tertiary">5/8</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert-popup">
+                <h4>⚠️ Task At Risk</h4>
+                <p>Payment Gateway — Risk Score: 88/100</p>
+                <span>AI Alert — 2 hours ago</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 3: STATS BAR -->
+    <section id="stats" class="stats">
+        <div class="stat-item reveal">
+            <div class="stat-num font-mono" style="color: var(--accent-blue)" data-target="40">0%</div>
+            <div class="stat-label">Fewer Project Delays</div>
+        </div>
+        <div class="stat-item reveal delay-100">
+            <div class="stat-num font-mono" style="color: var(--accent-green)" data-target="60">0%</div>
+            <div class="stat-label">Less Manual Reporting</div>
+        </div>
+        <div class="stat-item reveal delay-200">
+            <div class="stat-num font-mono" style="color: var(--accent-purple)" data-target="3">0x</div>
+            <div class="stat-label">Faster Risk Detection</div>
+        </div>
+        <div class="stat-item reveal delay-300">
+            <div class="stat-num font-mono" style="color: var(--accent-amber)" data-target="5">0 hrs</div>
+            <div class="stat-label">Saved Per Manager Weekly</div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: FEATURES SECTION -->
+    <section id="features" class="section">
+        <div class="section-header reveal">
+            <div class="pill-label">FEATURES</div>
+            <h2 class="section-title">Everything your team needs<br><span class="text-gradient">to stay ahead.</span></h2>
+            <p class="section-subtitle">One platform. Full visibility. Zero surprises.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card fc-blue reveal">
+                <div class="feature-icon-container bg-blue-soft">⏱️</div>
+                <h3>AI Delay Prediction</h3>
+                <p>Predicts task delays 2-3 days before deadlines are missed using real-time progress analysis and historical speed data.</p>
+            </div>
+            <div class="feature-card fc-purple reveal delay-100">
+                <div class="feature-icon-container bg-purple-soft">✓</div>
+                <h3>Smart Task Assignment</h3>
+                <p>Managers create projects and assign tasks with deadlines. Employees update progress daily. AI handles the rest automatically.</p>
+            </div>
+            <div class="feature-card fc-red reveal delay-200">
+                <div class="feature-icon-container bg-red-soft">❤️</div>
+                <h3>Burnout Detection</h3>
+                <p>Privately monitors each employee's 4-week performance trend and alerts managers before burnout becomes a serious problem.</p>
+            </div>
+            <div class="feature-card fc-purple reveal">
+                <div class="feature-icon-container bg-purple-soft">✨</div>
+                <h3>AI Chat Assistant</h3>
+                <p>Ask your AI anything in plain English. "Which projects are at risk this week?" Get instant, data-driven answers.</p>
+            </div>
+            <div class="feature-card fc-green reveal delay-100">
+                <div class="feature-icon-container bg-green-soft">📊</div>
+                <h3>Auto Weekly Reports</h3>
+                <p>Every Monday at 8AM, an AI-generated performance report is automatically sent to all managers. Zero manual effort.</p>
+            </div>
+            <div class="feature-card fc-cyan reveal delay-200">
+                <div class="feature-icon-container bg-cyan-soft">🌐</div>
+                <h3>Client Portal</h3>
+                <p>Give clients a live, read-only view of their project's progress. Build trust with full transparency.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: HOW IT WORKS -->
+    <section id="how-it-works" class="section bg-alt">
+        <div class="section-header reveal">
+            <div class="pill-label">HOW IT WORKS</div>
+            <h2 class="section-title">From input to insight<br>in 6 simple steps</h2>
+            <p class="section-subtitle">Set up in minutes. Results from day one.</p>
+        </div>
+
+        <div class="steps-container">
+            <div class="step-line"></div>
+
+            <div class="step-row reveal">
+                <div class="step-content">
+                    <h3>Manager Creates Project & Tasks</h3>
+                    <p>Open Operix, create a project, add tasks, assign each to an employee, and set deadlines. The entire team is aligned instantly.</p>
+                </div>
+                <div class="step-number">1</div>
+                <div class="step-visual">
+                    <div class="mock-panel">
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Project Name</div>
+                        <div style="border: 1px solid var(--border); padding: 8px; border-radius: 6px; margin-bottom: 12px; font-size: 14px;">E-Commerce Redesign</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Assign to:</div>
+                        <div style="border: 1px solid var(--border); padding: 8px; border-radius: 6px; margin-bottom: 12px; font-size: 14px;">Ravi Kumar</div>
+                        <div class="btn btn-primary" style="width: 100%; padding: 8px; font-size: 14px;">Create Task</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-row reverse reveal">
+                <div class="step-content">
+                    <h3>Employee Updates Daily Progress</h3>
+                    <p>Each employee opens their task and drags a simple slider to update their progress. No complex tools. Just tap and update.</p>
+                </div>
+                <div class="step-number">2</div>
+                <div class="step-visual">
+                    <div class="mock-panel">
+                        <h4 style="margin-bottom: 16px;">Payment Gateway Integration</h4>
+                        <div style="background: var(--border); height: 8px; border-radius: 4px; position: relative; margin-bottom: 16px;">
+                            <div style="background: var(--accent-blue); width: 65%; height: 100%; border-radius: 4px;"></div>
+                            <div style="width: 16px; height: 16px; background: white; border-radius: 50%; position: absolute; left: 65%; top: -4px; transform: translateX(-50%);"></div>
+                        </div>
+                        <p style="font-size: 12px; color: var(--text-secondary); text-align: right;">65% Completed</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-row reveal">
+                <div class="step-content">
+                    <h3>AI Calculates Risk Every 12 Hours</h3>
+                    <p>The AI engine analyzes every task's progress velocity against its deadline and calculates a real-time risk score from 0 to 100.</p>
+                </div>
+                <div class="step-number">3</div>
+                <div class="step-visual">
+                    <div class="mock-panel" style="text-align: center;">
+                        <div style="width: 100px; height: 100px; border-radius: 50%; border: 8px solid rgba(239,68,68,0.2); border-top-color: var(--accent-red); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; font-family: 'JetBrains Mono';">88</div>
+                        <h4 style="color: var(--accent-red);">HIGH RISK</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-row reverse reveal">
+                <div class="step-content">
+                    <h3>Manager Gets Instant Alert</h3>
+                    <p>The moment risk crosses 70, the manager receives an automatic alert — with the employee name, risk score, and AI recommendation.</p>
+                </div>
+                <div class="step-number">4</div>
+                <div class="step-visual">
+                    <div class="mock-panel" style="border-color: var(--accent-amber); background: #1C1C28;">
+                        <h4 style="color: var(--accent-amber); margin-bottom: 8px;">⚠️ Task At Risk</h4>
+                        <p style="font-size: 14px; margin-bottom: 4px;">Ravi Kumar — Risk: 88/100</p>
+                        <p style="font-size: 13px; color: var(--text-secondary);">Needs 9 days, only 4 remain</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-row reveal">
+                <div class="step-content">
+                    <h3>AI Detects Burnout Patterns</h3>
+                    <p>Every Sunday, the AI analyses each employee's 4-week performance trend in private and alerts the manager before burnout escalates.</p>
+                </div>
+                <div class="step-number">5</div>
+                <div class="step-visual">
+                    <div class="mock-panel">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 16px;">
+                            <span style="font-size: 14px; color: var(--accent-red);">Burnout Score: 68</span>
+                            <span style="font-size: 11px; background: rgba(168,85,247,0.2); color: var(--accent-purple); padding: 2px 8px; border-radius: 10px;">Confidential</span>
+                        </div>
+                        <div style="height: 60px; display: flex; align-items: flex-end; gap: 8px;">
+                            <div style="width: 25%; background: var(--border); height: 100%; border-radius: 4px;"></div>
+                            <div style="width: 25%; background: var(--border); height: 80%; border-radius: 4px;"></div>
+                            <div style="width: 25%; background: var(--border); height: 50%; border-radius: 4px;"></div>
+                            <div style="width: 25%; background: var(--accent-red); height: 30%; border-radius: 4px;"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 10px; color: var(--text-tertiary);">
+                            <span>W1</span><span>W2</span><span>W3</span><span>W4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-row reverse reveal">
+                <div class="step-content">
+                    <h3>Weekly AI Report Delivered</h3>
+                    <p>Every Monday at 8AM, a complete AI-written performance report lands in every manager's inbox. Automatic. Accurate. Actionable.</p>
+                </div>
+                <div class="step-number">6</div>
+                <div class="step-visual">
+                    <div class="mock-panel" style="background: white; color: black;">
+                        <h4 style="margin-bottom: 12px;">📊 Weekly Report — Week of 19 May</h4>
+                        <div style="height: 6px; background: #E5E7EB; border-radius: 3px; width: 100%; margin-bottom: 8px;"></div>
+                        <div style="height: 6px; background: #E5E7EB; border-radius: 3px; width: 80%; margin-bottom: 8px;"></div>
+                        <div style="height: 6px; background: #E5E7EB; border-radius: 3px; width: 90%; margin-bottom: 24px;"></div>
+                        <p style="font-size: 11px; color: var(--accent-purple); font-weight: 600;">✨ Powered by Operix AI</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: AI ASSISTANT SHOWCASE -->
+    <section id="ai-assistant" class="section relative">
+        <div class="hero-bg-orb" style="top: 50%; transform: translate(-50%, -50%); opacity: 0.5;"></div>
+        
+        <div class="ai-grid">
+            <div class="reveal">
+                <div class="pill-label" style="border-color: rgba(168,85,247,0.4); color: var(--accent-purple);">AI-POWERED</div>
+                <h2 class="section-title">Your operations<br><span class="text-gradient">have a new brain.</span></h2>
+                <p class="section-subtitle" style="margin-bottom: 32px;">Ask Operix AI anything about your team in plain English. It reads your live company data and answers instantly.</p>
+                
+                <div class="ai-queries">
+                    <div class="ai-query">💬 Which projects are at risk this week?</div>
+                    <div class="ai-query">💬 Who has the most overdue tasks?</div>
+                    <div class="ai-query">💬 Generate a performance summary</div>
+                </div>
+                
+                <a href="/login" class="btn btn-primary" style="background: linear-gradient(135deg, var(--accent-purple), #D946EF);">Try AI Assistant →</a>
+            </div>
+            
+            <div class="chat-mockup reveal delay-200">
+                <div class="chat-header">
+                    <div class="chat-header-icon">✨</div>
+                    <div>
+                        <div style="font-weight: 600;">Operix AI</div>
+                        <div style="font-size: 11px; color: var(--accent-purple);">Powered by Gemini</div>
+                    </div>
+                </div>
+                
+                <div class="chat-body" id="chatSequence">
+                    <!-- Javascript will handle the animation loop -->
+                </div>
+                
+                <div class="chat-input">
+                    <input type="text" placeholder="Ask me about your team..." readonly>
+                    <div class="nav-icon" style="cursor: pointer;">↑</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: TESTIMONIALS -->
+    <section id="testimonials" class="section bg-alt">
+        <div class="section-header reveal">
+            <h2 class="section-title">Teams love Operix</h2>
+            <p class="section-subtitle">See what engineering leaders say</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="test-card reveal">
+                <div class="stars">★★★★★</div>
+                <p class="test-quote">"Operix completely transformed how we manage projects. The AI delay prediction caught 3 critical bottlenecks before they became real problems. Our delivery rate improved by 40%."</p>
+                <div class="test-author">
+                    <div class="author-avatar" style="background: rgba(168,85,247,0.2); color: var(--accent-purple);">AM</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 14px;">Arjun Mehta</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">CTO, FinTech Solutions</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="test-card reveal delay-100">
+                <div class="stars">★★★★★</div>
+                <p class="test-quote">"The burnout detection feature alone is worth it. We had a top developer silently struggling and Operix flagged it privately. That conversation saved us from losing him."</p>
+                <div class="test-author">
+                    <div class="author-avatar" style="background: rgba(79,110,247,0.2); color: var(--accent-blue);">DK</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 14px;">Divya Krishnan</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">Eng Manager, CloudSpark</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-card reveal delay-200">
+                <div class="stars">★★★★★</div>
+                <p class="test-quote">"The Monday morning AI reports are incredible. I used to spend 3 hours compiling these manually every week. Now they arrive automatically while I'm having coffee."</p>
+                <div class="test-author">
+                    <div class="author-avatar" style="background: rgba(34,197,94,0.2); color: var(--accent-green);">RP</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 14px;">Rajesh Patel</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">Head of Delivery, TechBridge</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SECTION 9: FAQ -->
+    <section id="faq" class="section bg-alt">
+        <div class="section-header reveal">
+            <h2 class="section-title">Frequently asked questions</h2>
+        </div>
+
+        <div class="faq-container reveal">
+            <div class="faq-item">
+                <button class="faq-question">
+                    How does the AI delay prediction work?
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        The AI engine tracks each employee's daily progress velocity and compares it against the task deadline. Using historical completion patterns, it calculates a risk score every 12 hours. When risk exceeds 70%, an automatic alert is sent to the manager.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Is the burnout detection data private?
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Absolutely. Burnout signals are strictly private — only the manager receives alerts. Employees never see their own burnout scores. The system uses empathetic, supportive language to help managers have productive conversations.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    How is Operix different from Jira or Trello?
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Jira and Trello are task management tools — they show you what is happening. Operix is an intelligence platform — it predicts what is about to go wrong. No other affordable tool combines AI delay prediction, burnout detection, and auto-generated reports in one place.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    What AI model powers Operix?
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Operix is powered by Google Gemini via LangChain. The AI reads your live company data — projects, tasks, risk scores — before answering any question, ensuring every response is based on actual project metrics.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Can clients access the platform?
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Yes. Managers can give clients access to a dedicated client portal where they see live project progress, milestones, and deliverables. Clients never see internal risk scores, employee details, or sensitive team data.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Is there a free plan available?
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Yes. The Starter plan is free forever for small teams up to 5 members with 3 active projects. No credit card required to start.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 10: FINAL CTA -->
+    <section id="cta" class="cta-section">
+        <div class="cta-orb"></div>
+        <div class="reveal">
+            <div class="pill-label">START TODAY</div>
+            <h2>Ready to stop firefighting<br><span class="text-gradient">and start predicting?</span></h2>
+            <p>Join IT teams who use Operix to deliver projects on time, support their teams proactively, and let AI handle the reporting.</p>
+            <a href="/login" class="btn btn-primary" style="padding: 18px 36px; font-size: 17px; border-radius: 12px;">Get Started Free — No Credit Card Required</a>
+            
+            <div class="trust-row">
+                <span>✓ Free forever plan</span>
+                <span class="hidden-mobile">•</span>
+                <span>✓ Setup in 5 minutes</span>
+                <span class="hidden-mobile">•</span>
+                <span>✓ No credit card needed</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 11: FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <img src="/logo.png" alt="Operix Logo" /> OPERIX
+                </div>
+                <p style="color: var(--text-tertiary); font-size: 14px; margin-bottom: 24px;">Predict. Prevent. Perform.</p>
+                <p style="color: var(--text-tertiary); font-size: 13px;">by KaizenSpark Tech Pvt. Ltd.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#">Changelog</a></li>
+                    <li><a href="#">Roadmap</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="mailto:contact@kaisenspark.com">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">GDPR</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2025 KaizenSpark Tech Pvt. Ltd.</span>
+            <span>Made with ❤️ in India 🇮🇳</span>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // 1. Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 2. Scroll Reveal Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Trigger count up if it's the stats section
+                    if (entry.target.classList.contains('stats') || entry.target.closest('.stats')) {
+                        const nums = entry.target.querySelectorAll('.stat-num') || [entry.target];
+                        nums.forEach(num => {
+                            if (num.dataset.target && !num.dataset.counted) {
+                                countUp(num);
+                                num.dataset.counted = 'true';
+                            }
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 3. Count Up Animation
+        function countUp(element) {
+            const target = parseInt(element.dataset.target);
+            const duration = 1500;
+            const step = target / (duration / 16); // 60fps
+            let current = 0;
+            
+            const originalText = element.innerText;
+            const suffix = originalText.replace(/[0-9]/g, '');
+
+            const updateCounter = () => {
+                current += step;
+                if (current < target) {
+                    element.innerText = Math.floor(current) + suffix;
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.innerText = target + suffix;
+                }
+            };
+            requestAnimationFrame(updateCounter);
+        }
+
+        // 4. FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const btn = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            const inner = item.querySelector('.faq-answer-inner');
+            
+            btn.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all
+                faqItems.forEach(faq => {
+                    faq.classList.remove('active');
+                    faq.querySelector('.faq-answer').style.height = '0px';
+                });
+
+                // Open clicked if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                    answer.style.height = inner.getBoundingClientRect().height + 'px';
+                }
+            });
+        });
+
+        // 5. AI Chat Replay Loop
+        const chatContainer = document.getElementById('chatSequence');
+        
+        const messages = [
+            { type: 'user', text: "Which projects are at risk this week?", delay: 500 },
+            { type: 'typing', delay: 1000 },
+            { type: 'ai', text: "<b>3 projects need immediate attention:</b><br><br>• Payment Gateway — Risk: 88/100 🔴<br>• Dashboard Module — Risk: 72/100 🟡<br>• API Docs — Risk: 65/100 🟡<br><br><b>Recommendation:</b> Ravi Kumar is at capacity. Consider reassigning Task #4.", delay: 2500 },
+            { type: 'user', text: "Who should I reassign it to?", delay: 4000 },
+            { type: 'typing', delay: 4500 },
+            { type: 'ai', text: "<b>Sneha Reddy</b> has the most available capacity this week (3/8 tasks).<br><br>She has successfully completed 5 similar backend tasks in the past.", delay: 6000 }
+        ];
+
+        function playChatSequence() {
+            chatContainer.innerHTML = '';
+            
+            messages.forEach(msg => {
+                setTimeout(() => {
+                    if (msg.type === 'typing') {
+                        const typing = document.createElement('div');
+                        typing.className = 'typing';
+                        typing.innerHTML = '<span></span><span></span><span></span>';
+                        chatContainer.appendChild(typing);
+                    } else {
+                        // Remove typing indicator if exists
+                        const existingTyping = chatContainer.querySelector('.typing');
+                        if (existingTyping) existingTyping.remove();
+
+                        const div = document.createElement('div');
+                        div.className = `chat-msg msg-${msg.type}`;
+                        div.innerHTML = msg.text;
+                        chatContainer.appendChild(div);
+                    }
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }, msg.delay);
+            });
+        }
+
+        playChatSequence();
+        setInterval(playChatSequence, 10000); // Replay every 10s
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+# OPERIX PLATFORM - REQUIREMENTS & DEPENDENCIES
+
+This is a modern Node.js and React (TypeScript) application. There is no Python involved, so dependency management is handled via `package.json` files and `npm`. However, as requested, here is the complete list of tools, external services, and libraries required for this project.
+
+## 1. SYSTEM REQUIREMENTS
+- Node.js (v18.0.0 or higher recommended)
+- npm (v9.0.0 or higher)
+- A modern web browser (Chrome, Edge, Firefox, Safari)
+
+## 2. EXTERNAL SERVICES & API KEYS NEEDED
+You must create accounts and get API keys for the following services to put in your `.env` file:
+1. **Supabase**: For PostgreSQL database and authentication.
+   - Requires: `SUPABASE_URL` and `SUPABASE_ANON_KEY`
+2. **Google Gemini AI**: For the Risk Engine, Burnout Engine, and AI Assistant.
+   - Requires: `GEMINI_API_KEY`
+3. **Resend**: For sending automated transactional emails.
+   - Requires: `RESEND_API_KEY`
+
+## 3. BACKEND LIBRARIES (Node.js + Express + TypeScript)
+Run `npm install` inside the `/backend` directory to install these automatically:
+- express (v5) - Web framework
+- @supabase/supabase-js - Database ORM & Client
+- @langchain/google-genai & @langchain/core - Gemini AI integration
+- socket.io - Real-time WebSockets for alerts
+- node-cron - Automated scheduled background jobs
+- resend - Email delivery SDK
+- jsonwebtoken - Auth tokens
+- bcrypt - Password hashing
+- zod - Request schema validation
+- cors, helmet, morgan - Security and logging middlewares
+
+## 4. FRONTEND LIBRARIES (React + Vite + TypeScript)
+Run `npm install` inside the `/frontend` directory to install these automatically:
+- react & react-dom (v18)
+- vite - Build tool and development server
+- tailwindcss (v3) - Utility-first CSS styling
+- shadcn/ui - Accessible component library (Radix UI)
+- zustand - Global state management
+- @tanstack/react-query - Data fetching and caching
+- react-router-dom - Frontend routing
+- @hello-pangea/dnd - Drag-and-drop for the Kanban board
+- recharts - Beautiful dashboard graphs and charts
+- react-hook-form & @hookform/resolvers - Form state and validation
+- lucide-react - Premium icon set
+- date-fns - Date formatting
+- react-markdown - Parsing AI markdown responses
+- axios - HTTP requests to the backend
+- socket.io-client - Real-time connection to backend alerts

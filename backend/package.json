@@ -1,0 +1,43 @@
+{
+  "name": "operix-backend",
+  "version": "1.0.0",
+  "description": "OPERIX — AI-Powered Business Operations Platform Backend by KaizenSpark Tech",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@langchain/core": "^0.3.0",
+    "@langchain/google-genai": "^0.1.0",
+    "@supabase/supabase-js": "^2.49.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.0",
+    "express": "^4.21.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "node-cron": "^3.0.3",
+    "resend": "^4.0.0",
+    "socket.io": "^4.8.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.0.0",
+    "@types/node-cron": "^3.0.11",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  },
+  "overrides": {
+    "@langchain/core": "^0.3.0"
+  }
+}
