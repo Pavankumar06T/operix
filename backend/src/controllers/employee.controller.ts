@@ -65,7 +65,7 @@ export const getEmployeePortal = async (req: Request, res: Response): Promise<vo
       return {
         ...cleanProject,
         overall_progress: overallProgress,
-        active_tasks: teamTasks?.filter(t => t.project_id === p.id).map(t => ({
+        active_tasks: teamTasks?.filter(t => t.project_id === p.id).map((t: any) => ({
         id: t.id,
         title: t.title,
         status: t.status,
