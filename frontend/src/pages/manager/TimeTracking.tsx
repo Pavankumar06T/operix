@@ -23,7 +23,7 @@ export function TimeTracking() {
     } else {
       setTechData([])
     }
-  }, [selectedEmployeeId, fetchTechnologies])
+  }, [selectedEmployeeId])
 
   const handleExportCSV = () => {
     if (!teamOverview || teamOverview.length === 0) return
