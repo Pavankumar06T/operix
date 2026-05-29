@@ -155,16 +155,20 @@ export function TimeTracking() {
               Technology Usage (This Week)
             </CardTitle>
           </CardHeader>
-          <CardContent className="h-64 flex flex-col items-center justify-center text-muted-foreground">
+          <CardContent className="h-64">
             {!selectedEmployeeId ? (
-              <>
+              <div className="h-full flex flex-col items-center justify-center text-muted-foreground">
                 <Monitor className="w-8 h-8 mb-2 opacity-30" />
                 <p>Click on an employee in the table to view</p>
-              </>
+              </div>
             ) : isLoadingTech ? (
-              <p>Loading data...</p>
+              <div className="h-full flex flex-col items-center justify-center text-muted-foreground">
+                <p>Loading data...</p>
+              </div>
             ) : techData.length === 0 ? (
-              <p>No technology data found for this week.</p>
+              <div className="h-full flex flex-col items-center justify-center text-muted-foreground">
+                <p>No technology data found for this week.</p>
+              </div>
             ) : (
               <div className="w-full h-full">
                 <ResponsiveContainer width="100%" height="100%">
