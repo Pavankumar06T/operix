@@ -170,7 +170,7 @@ export function TimeTracking() {
                 <p>No technology data found for this week.</p>
               </div>
             ) : (
-              <div className="w-full h-full">
+              <div style={{ width: '100%', height: 250 }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
