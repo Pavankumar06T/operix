@@ -3,7 +3,7 @@ import { useTimeTracking } from '@/hooks/useTimeTracking'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Clock, RefreshCcw, Monitor, Download, BarChart2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts'
 
 const COLORS = ['#4F6EF7', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899']
 
@@ -177,7 +177,7 @@ export function TimeTracking() {
                       data={techData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={60}
+                      innerRadius={50}
                       outerRadius={80}
                       paddingAngle={5}
                       dataKey="totalHours"
@@ -188,8 +188,14 @@ export function TimeTracking() {
                       ))}
                     </Pie>
                     <Tooltip 
-                      formatter={(value: any) => [`${value} hours`, 'Time Spent']}
+                      formatter={(value: any, name: any) => [`${value} hours`, name]}
                       contentStyle={{ backgroundColor: '#1f2937', borderColor: '#374151', color: '#f3f4f6' }}
+                    />
+                    <Legend 
+                      verticalAlign="bottom" 
+                      height={36}
+                      iconType="circle"
+                      formatter={(value) => <span style={{ color: '#9ca3af', fontSize: '12px' }}>{value}</span>}
                     />
                   </PieChart>
                 </ResponsiveContainer>
