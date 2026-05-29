@@ -449,7 +449,7 @@ export const getTechnologies = async (req: Request, res: Response): Promise<void
       const hours = techMap[k].mins / 60;
       return {
         technology: k,
-        totalHours: techMap[k].mins > 0 ? Math.max(0.1, +hours.toFixed(1)) : 0,
+        totalHours: Math.max(0.1, +hours.toFixed(1)),
         percentage: Math.round((techMap[k].mins / totalMins) * 100),
         projects: Array.from(techMap[k].projects)
       };
